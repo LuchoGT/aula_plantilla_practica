@@ -1,0 +1,15 @@
+.auth-template{
+    // width: 100%;
+    // height: 100%;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background-color: green;
+    place-items: center;
+    align-items: center;
+    flex-direction: column;
+    // @include desktop2{
+    //     height: 100%;
+    // }
+}
+

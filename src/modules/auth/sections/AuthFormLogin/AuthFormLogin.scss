@@ -1,0 +1,21 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    &__buttons{
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__button{
+        width: 100%;
+        padding: .5rem;
+        background: yellowgreen;
+        border: none;
+        font-weight: 600;
+        font-size: 1rem;
+        color: white;
+        border-radius: .5rem;
+    }
+}

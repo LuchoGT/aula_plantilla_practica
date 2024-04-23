@@ -1,0 +1,26 @@
+.login{
+    background: rgba(34, 41, 73, 0.5);
+    color: #FFF;
+    width: 300px;
+    margin: 0 auto;
+    box-shadow: 0 7px 15px 0 rgba(0, 0, 0, 0.2);
+    &__container{
+        // text-align: center;
+        padding: 2rem 1rem;
+        
+    }
+    &__header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        h1{
+            border-radius: 50%;
+            padding: .5rem;
+            background-color: white;
+        }
+        div{
+            text-align: center;
+        }
+    }
+}
