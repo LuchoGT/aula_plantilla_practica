@@ -1,6 +1,5 @@
 import { useAuthStore } from "@/hooks/useAuthStore";
-import { ProfilePage } from "@/modules/aula/pages/ProfilePage/ProfilePage"
-import { LoginPage } from "@/modules/auth/pages/LoginPage/LoginPage"
+import { AulaRoutes } from "@/modules/aula/routes/AulaRoutes";
 import { AuthRoutes } from "@/modules/auth/routes/AuthRoutes";
 import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom"
@@ -43,8 +42,8 @@ export const AppRouter = () => {
         </>
         :
         <>
-          <Route path="/" element={<ProfilePage/>}/>
-          <Route path="/*" element={ <Navigate to="/" /> } />
+          <Route path="/*" element={<AulaRoutes/>}/>
+          {/* <Route path="/*" element={ <Navigate to="/" /> } /> */}
         </>
       }
     

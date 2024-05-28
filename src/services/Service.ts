@@ -1,5 +1,5 @@
 import { Constants } from '@/constants/public.constants';
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 class Service {
 
@@ -12,41 +12,29 @@ class Service {
     'Accept': 'application/json'
   };
 
-  constructor() {
 
-    this.http = this.setupInterceptors(axios.create({
-        baseURL: this.baseUrl,
-        headers: this.headers,
-    })) 
+  constructor() {
+    const token = localStorage.getItem('token');
+    const authorizationToken = token ? { 'x-token': token } : {};
+
+    this.http = axios.create({
+      baseURL: this.baseUrl,
+      headers: {
+        ...this.headers,
+        ...authorizationToken,
+      },
+    });
   }
 
-  private setupInterceptors(instance: AxiosInstance): AxiosInstance {
-    instance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
-        config.headers = {
-          ...config.headers,
-          'x-token': localStorage.getItem('token') || '', // Ensure the token is not null or undefined
-        };
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      }
-    );
+ 
 
-    instance.interceptors.response.use(
-      (response: AxiosResponse) => {
-        // Here you can add logic to handle responses before promises resolve.
-        // For example, check and handle specific status codes.
-        return response;
-      },
-      (error) => {
-        // Here you can handle response errors.
-        return Promise.reject(error);
-      }
-    );
+  protected handleResponse<T>(response: AxiosResponse<T>): T {
+    return response.data;
+  }
 
-    return instance;
+  protected handleError(error: AxiosError): void {
+    console.error('API Error:', error.response?.data ?? error.message);
+    throw error;
   }
 }
 

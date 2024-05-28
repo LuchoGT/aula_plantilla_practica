@@ -1,28 +1,24 @@
 import { Auth } from "@/interfaces/auth";
+import { User } from "@/interfaces/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: Auth = {
   user: null,
   status: "checking",
-  errorMessage: undefined,
+  errorMessage: null,
 };
 
 export const authSlice = createSlice({
   name: "auth",
-  // initialState: {
-  //   status: "checking",
-  //   user: {},
-  //   errorMessage: undefined,
-  // },
   initialState,
   reducers: {
-    onLogin: (state, action: PayloadAction<string>) => {
+    onLogin: (state, action: PayloadAction<User>) => {
       // state.user = action.payload;
       state.user = action.payload;
       state.status = "authenticated";
-      state.errorMessage = undefined;
+      state.errorMessage = null;
     },
-    onLogout: (state,action: PayloadAction<string |undefined>) => {
+    onLogout: (state,action: PayloadAction<string |null>) => {
       // state.user = {};
       state.user = null;
       state.status = "not-authenticated";
@@ -32,13 +28,18 @@ export const authSlice = createSlice({
       state.status = "checking";
       // state.user = {};
       state.user = null;
-      state.errorMessage = undefined;
+      state.errorMessage = null;
     },
     clearErrorMessage: ( state ) => {
-        state.errorMessage = undefined;
+        state.errorMessage = null;
+    },
+    updateUser:(state,action: PayloadAction<User>) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
     }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {onLogin,onCheckingCredentials,onLogout,clearErrorMessage} = authSlice.actions;
+export const {onLogin,onCheckingCredentials,onLogout,clearErrorMessage,updateUser} = authSlice.actions;

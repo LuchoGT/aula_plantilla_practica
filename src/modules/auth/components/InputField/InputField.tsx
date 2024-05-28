@@ -1,8 +1,9 @@
 import { FieldError, UseFormRegister } from "react-hook-form";
 import './InputField.scss'
+import { CSSProperties, RefObject } from "react";
 
 interface InputFieldProps {
-    label: string;
+    label?: string;
     name: string;
     register: UseFormRegister<TFieldValues>;
     error?: FieldError | undefined;
@@ -12,6 +13,10 @@ interface InputFieldProps {
     minLength?: number;
     minLengthMessage?:string;
     value?: string;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>; 
+    accept?:string,
+    ref?:RefObject<HTMLInputElement>,
+    style?:CSSProperties | undefined,
   }
 
 export const InputField = ({
@@ -25,6 +30,10 @@ export const InputField = ({
     minLength=0,
     minLengthMessage="",
     value,
+    onChange,
+    accept,
+    ref,
+    style
 }:InputFieldProps) => {
   return (
     <div className="input-field">
@@ -45,6 +54,10 @@ export const InputField = ({
           },
         })}
         value={value}
+        onChange={onChange}
+        accept={accept}
+        ref={ref}
+        style={style}
       />
       {error && <span className="input-field__alert">{error.message}</span>}
     </div>
