@@ -1,6 +1,7 @@
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { AulaRoutes } from "@/modules/aula/routes/AulaRoutes";
 import { AuthRoutes } from "@/modules/auth/routes/AuthRoutes";
+import { Loading } from "@/modules/auth/sections/Loading/Loading";
 import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom"
 
@@ -8,8 +9,6 @@ export const AppRouter = () => {
 
 
   const  {checkAuthToken,status} = useAuthStore();
-
-
 
   useEffect(() => {
     // Simula la verificación de autenticación (sin backend real)
@@ -25,7 +24,7 @@ export const AppRouter = () => {
   
   if ( status === 'checking' ) {
     return (
-        <h3>Cargando...</h3>
+      <Loading/>
     )
 }
 

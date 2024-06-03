@@ -1,14 +1,11 @@
 import { Alert, Button, Grid, TextField, Typography } from "@mui/material";
-import { AuthFormLogin } from "../../sections/AuthFormLogin/AuthFormLogin";
-import "./LoginPage.scss";
 import { Link } from "react-router-dom";
-import { Label } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import { User } from "@/interfaces/user";
 import { useAuthStore } from "@/hooks/useAuthStore";
+import "./LoginPage.scss";
 
 export const LoginPage = () => {
-
   const {
     register,
     formState: { errors },
@@ -16,15 +13,13 @@ export const LoginPage = () => {
     reset,
   } = useForm<User>();
 
-  
-  const {startLogin,errorMessage} = useAuthStore();
-
+  const { startLogin, errorMessage } = useAuthStore();
 
   const onSubmit = (data: User) => {
-    const { name,password } = data;
+    const { name, password } = data;
     // dispatch(onLogin(name));
     // localStorage.setItem("virtual", name);
-    startLogin({name,password});
+    startLogin({ name, password });
     reset();
   };
   return (
@@ -44,65 +39,48 @@ export const LoginPage = () => {
     <main>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container>
-          <Grid item xs={12} sx={{ mt: 2 }}>
+          <Grid item xs={12} sx={{ mt: 4 }}>
             <Typography>Usuario</Typography>
             <TextField
-              // label="Usuario"
               type="text"
               placeholder="Ingresa tu usuario"
               fullWidth
-              {...register("name",{
-                required: "Usuario es requerido"
+              {...register("name", {
+                required: "Usuario es requerido",
               })}
               error={!!errors.name}
               helperText={errors.name?.message}
-              // value={ email }
-              // onChange={ onInputChange }
             />
           </Grid>
 
           <Grid item xs={12} sx={{ mt: 2 }}>
-            <Typography>Contrasena</Typography>
+            <Typography>Contraseña</Typography>
             <TextField
-              // label="Contraseña"
               type="password"
               placeholder="Ingresa tu contraseña"
               fullWidth
-              {...register("password",{
-                required: "Contrasena es requerida",
-                // minLength: {
-                //   value: 6,
-                //   message: "Minimo 6 caracteres"
-                // }
+              {...register("password", {
+                required: "Contraseña es requerida",
               })}
               error={!!errors.password}
               helperText={errors.password?.message}
-              // value={ password }
-              // onChange={ onInputChange }
             />
           </Grid>
 
-          <Grid 
-              container
-              display={ errorMessage ? '': 'none' }
-              sx={{ mt: 1 }}>
-              <Grid 
-                  item 
-                  xs={ 12 }
-                >
-                <Alert severity='error'>{ errorMessage }</Alert>
-              </Grid>
+          <Grid container display={errorMessage ? "" : "none"} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
+              <Alert severity="error">{errorMessage}</Alert>
             </Grid>
+          </Grid>
 
           <Grid item xs={12} sx={{ mt: 2 }}>
-          <Button
-            // disabled={ isAuthenticating }
-            type="submit"
-            variant="contained"
-            fullWidth
-          >
-            Ingresar
-          </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+            >
+              Ingresar
+            </Button>
           </Grid>
 
           <Grid
@@ -114,7 +92,6 @@ export const LoginPage = () => {
               {/* <Alert severity='error'>{ errorMessage }</Alert> */}
             </Grid>
           </Grid>
-
 
           <Grid container direction="row" justifyContent="end">
             <Link color="inherit" to="/auth/register">

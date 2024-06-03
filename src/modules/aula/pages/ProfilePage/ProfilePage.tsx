@@ -295,7 +295,7 @@ export const ProfilePage = () => {
             error={errors.phone}
           />
         </div>
-        <Button color="secondary" variant="contained" type="submit" >
+        <Button color="secondary" variant="contained" type="submit" disabled>
           Guardar mis datos
         </Button>
       </form>

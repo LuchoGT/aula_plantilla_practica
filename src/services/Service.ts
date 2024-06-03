@@ -32,10 +32,10 @@ class Service {
     return response.data;
   }
 
-  protected handleError(error: AxiosError): void {
-    console.error('API Error:', error.response?.data ?? error.message);
-    throw error;
-  }
+  // protected handleError(error: AxiosError): void {
+  //   console.error('API Error:', error.response?.data ?? error.message);
+  //   throw error;
+  // }
 }
 
 export default Service;

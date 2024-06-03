@@ -1,10 +1,22 @@
-import { Alert, Button, Checkbox, FormControlLabel, FormGroup, Grid, TextField, Typography } from "@mui/material";
-import { AuthFormRegister } from "../../sections/AuthFormRegister/AuthFormRegister";
+import {
+  Alert,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { User } from "@/interfaces/user";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { useEffect, useState } from "react";
+import {
+  CheckCircleOutline,
+  CircleOutlined,
+} from "@mui/icons-material";
 
 export const RegisterPage = () => {
   const {
@@ -12,8 +24,6 @@ export const RegisterPage = () => {
     formState: { errors },
     handleSubmit,
     reset,
-    setValue,
-    watch,
   } = useForm<User>();
 
   const { startRegister, errorMessage } = useAuthStore();
@@ -26,11 +36,10 @@ export const RegisterPage = () => {
     isLengthValid: false,
   });
 
-  // const passwordValue = watch('password'); 
+  // const passwordValue = watch('password');
 
   const onSubmit = (data: User) => {
     const { name, password } = data;
-    // localStorage.setItem('aula-virtual',username);
     // dispatch(checkingCredentials());
     // dispatch(login(username));
     // console.log('register',{username,password});
@@ -53,19 +62,6 @@ export const RegisterPage = () => {
     });
   };
 
-  // useEffect(() => {
-  //   // Verificar si el password cumple con los requisitos y marcar los checkboxes
-  //   const uppercaseRegex = /[A-Z]/;
-  //   const lowercaseRegex = /[a-z]/;
-  //   const numberRegex = /[0-9]/;
-
-  //   if (passwordValue !== undefined) {
-  //     setValue('requireUppercase', uppercaseRegex.test(passwordValue));
-  //     setValue('requireLowercase', lowercaseRegex.test(passwordValue));
-  //     setValue('requireNumber', numberRegex.test(passwordValue));
-  //     setValue('requireMinLength', passwordValue.length >= 6);
-  //   }
-  // }, [passwordValue, setValue]);
 
   return (
     // <main className="login">
@@ -83,7 +79,7 @@ export const RegisterPage = () => {
     <main>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container>
-          <Grid item xs={12} sx={{ mt: 2 }}>
+          <Grid item xs={12} sx={{ mt: 5 }}>
             <Typography>Usuario</Typography>
             <TextField
               type="text"
@@ -97,8 +93,8 @@ export const RegisterPage = () => {
             />
           </Grid>
 
-          <Grid item xs={12} sx={{ mt: 2 }}>
-            <Typography>Contrasena</Typography>
+          <Grid item xs={12} sx={{ mt: 3 }}>
+            <Typography>Contraseña</Typography>
             <TextField
               // label="Contraseña"
               type="password"
@@ -113,22 +109,53 @@ export const RegisterPage = () => {
             />
           </Grid>
 
-          <FormControlLabel
-            control={<Checkbox checked={passwordChecks.hasUppercase} disabled />}
-            label="Contains at least one uppercase letter"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={passwordChecks.hasLowercase} disabled />}
-            label="Contains at least one lowercase letter"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={passwordChecks.hasNumber} disabled />}
-            label="Contains at least one number"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={passwordChecks.isLengthValid} disabled />}
-            label="Is at least 6 characters long"
-          />
+          <FormGroup sx={{mt:2}}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={passwordChecks.hasUppercase}
+                  icon={<CircleOutlined />}
+                  checkedIcon={<CheckCircleOutline />}
+                  disabled
+                />
+              }
+              label="Mínimo 1 mayúscula"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={passwordChecks.hasLowercase}
+                  icon={<CircleOutlined />}
+                  checkedIcon={<CheckCircleOutline />}
+                  disabled
+                />
+              }
+              label="Mínimo 1 minúscula"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={passwordChecks.hasNumber}
+                  icon={<CircleOutlined />}
+                  checkedIcon={<CheckCircleOutline />}
+                  disabled
+                />
+              }
+              label="Mínimo 1 número"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={passwordChecks.isLengthValid}
+                  icon={<CircleOutlined />}
+                  checkedIcon={<CheckCircleOutline />}
+                  disabled
+                />
+              }
+              label="Mínimo 6 caracteres"
+            />
+          </FormGroup>
+
           <Grid container display={errorMessage ? "" : "none"} sx={{ mt: 1 }}>
             <Grid item xs={12}>
               <Alert severity="error">{errorMessage}</Alert>
@@ -137,11 +164,16 @@ export const RegisterPage = () => {
 
           <Grid item xs={12} sx={{ mt: 2 }}>
             <Button
-              // disabled={ isAuthenticating }
               type="submit"
               variant="contained"
               fullWidth
-              disabled={!passwordChecks.hasLowercase || !passwordChecks.hasNumber || !passwordChecks.hasUppercase || !passwordChecks.isLengthValid}
+              sx={{padding:1.5, fontWeight:700, color: "white"}}
+              disabled={
+                !passwordChecks.hasLowercase ||
+                !passwordChecks.hasNumber ||
+                !passwordChecks.hasUppercase ||
+                !passwordChecks.isLengthValid
+              }
             >
               Registrar
             </Button>

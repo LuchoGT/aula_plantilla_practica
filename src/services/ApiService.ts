@@ -9,7 +9,8 @@ class ApiService extends Service {
       const response = await this.http.post("/api/v1/auth", { name, password });
       return this.handleResponse(response);
     } catch (error) {
-      this.handleError(error);
+      throw new Error("");
+
     }
   }
 
@@ -18,7 +19,8 @@ class ApiService extends Service {
       const response = await this.http.post("/api/v1/auth/register", { name, password });
       return this.handleResponse(response);
     } catch (error) {
-      this.handleError(error);
+      throw new Error("");
+
     }
   }
 
@@ -27,7 +29,7 @@ class ApiService extends Service {
       const response = await this.http.get("/api/v1/auth/renew");
       return this.handleResponse(response);
     } catch (error) {
-      this.handleError(error);
+      throw new Error("");
     }
   }
 
@@ -60,7 +62,6 @@ class ApiService extends Service {
 
       return this.handleResponse(response);
     } catch (error) {
-      this.handleError(error);
     }
   }
 
@@ -69,7 +70,6 @@ class ApiService extends Service {
       const response = await this.http.put("/api/v1/auth/updateuser", { userId, ...updateData });
       return this.handleResponse(response);
     } catch (error) {
-      this.handleError(error);
     }
   }
 

@@ -20,3 +20,16 @@
     text-transform: initial !important;
   }
 
+  button:disabled{
+    color:white !important;
+    opacity: 0.5;
+    background-color: #4F58C6 !important;
+  }
+
+p{
+  color: white;
+}
+
+span{
+  color: #FFFFFF99 !important;
+}
